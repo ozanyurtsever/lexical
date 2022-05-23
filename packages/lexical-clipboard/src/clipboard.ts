@@ -26,11 +26,13 @@ import {
   $createParagraphNode,
   $getRoot,
   $getSelection,
+  $isDecoratorNode,
   $isElementNode,
   $isGridCellNode,
   $isGridNode,
   $isGridRowNode,
   $isGridSelection,
+  $isLineBreakNode,
   $isRangeSelection,
   $isTextNode,
   $setSelection,
@@ -227,7 +229,12 @@ function $basicInsertStrategy(
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
 
-      if (!$isElementNode(node) || node.isInline()) {
+      if (
+        ($isDecoratorNode(node) && !node.isTopLevel()) ||
+        ($isElementNode(node) && node.isInline()) ||
+        $isTextNode(node) ||
+        $isLineBreakNode(node)
+      ) {
         if (currentBlock === null) {
           currentBlock = $createParagraphNode();
           topLevelBlocks.push(currentBlock);
