@@ -220,7 +220,7 @@ export function $getLexicalContent(editor: LexicalEditor): string | null {
 
 export function $insertDataTransferForPlainText(
   dataTransfer: DataTransfer,
-  selection: RangeSelection,
+  selection: RangeSelection | GridSelection,
 ): void {
   const text = dataTransfer.getData('text/plain');
 
@@ -230,7 +230,7 @@ export function $insertDataTransferForPlainText(
 }
 export function $insertDataTransferForRichText(
   dataTransfer: DataTransfer,
-  selection: RangeSelection,
+  selection: RangeSelection | GridSelection,
   editor: LexicalEditor,
 ): void {
   const lexicalNodesString = dataTransfer.getData(
